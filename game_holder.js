@@ -7,7 +7,7 @@
     this.SCREENHEIGHT = canvasEl.height;
     this.asteroids = this.addAsteroids(3);
     this.ship = this.addShip(this.SCREENWIDTH, this.SCREENHEIGHT);
-
+    // this.bullets = [];
   };
 
   Game.prototype.addAsteroids = function(num) {
@@ -22,54 +22,63 @@
     return Asteroids.Ship.newShip(x, y);
   };
 
+  // Game.prototype.fireBullet = function() {
+ //    this.bullets.push(this.ship.fireBullet());
+ //  }
+
   Game.prototype.draw = function() {
     this.ctx.clearRect(0,0, this.SCREENWIDTH, this.SCREENHEIGHT);
     var that = this;
-    // console.log(this.ship);
     this.ship.draw(this.ctx, Asteroids.Ship.COLOR);
+
+    // this.bullets.forEach(function(bullet) {
+    //   bullet.draw(that.ctx, Asteroids.Bullet.COLOR);
+    // });
+
     this.asteroids.forEach(function(asteroid) {
-      // console.log("anything");
       asteroid.draw(that.ctx, Asteroids.Asteroid.COLOR);
-    })
+    });
   };
 
-  Game.prototype.move = function(){
+  Game.prototype.move = function() {
     var that = this;
     this.ship.move(this.SCREENWIDTH, this.SCREENHEIGHT);
-    this.asteroids.forEach(function(asteroid){
+
+    // this.bullets.forEach(function(bullet) {
+    //   bullet.move(that.SCREENWIDTH, that.SCREENHEIGHT);
+    // });
+
+    this.asteroids.forEach(function(asteroid) {
       asteroid.move(that.SCREENWIDTH, that.SCREENHEIGHT);
-    })
+    });
   };
 
-  Game.prototype.step = function(){
+  Game.prototype.step = function() {
     var game = this;
-    // console.log(game.asteroids);
-    for (var i = 0; i < game.asteroids.length; i++){
-      if (game.ship.isCollideWith(game.asteroids[i])){
-        // console.log("COLLIDE!!!");
+    for (var i = 0; i < game.asteroids.length; i++) {
+      if (game.ship.isCollideWith(game.asteroids[i])) {
         alert("You lose!!!");
-      }
     }
 
-    game.asteroids.forEach(function(asteroid){
+    //questionable. Why iterate over asteroids to make game move?
+    game.asteroids.forEach(function(asteroid) {
       game.move();
       game.draw();
     })
   };
 
-  Game.prototype.bindKeyHandlers = function(){
-    console.log("here");
-    if (key.shift) {
-      alert("meow");
-    }
+  Game.prototype.bindKeyHandlers = function() {
     var that = this;
+
+
     key('w', function(){ that.ship.power([ 0,-1]) });
     key('a', function(){ that.ship.power([-1, 0]) });
     key('s', function(){ that.ship.power([ 0, 1]) });
     key('d', function(){ that.ship.power([ 1, 0]) });
+    // key('space', function(){ that.fireBullet() });
   };
 
-  Game.prototype.start = function(){
+  Game.prototype.start = function() {
     // var ctx = canvasEl.getContext("2d");
     var game = this;
     this.bindKeyHandlers();

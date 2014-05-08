@@ -1,11 +1,11 @@
 (function(root){
   var Asteroids = root.Asteroids = (root.Asteroids || {});
 
-  var MoveObject = Asteroids.MoveObject = function (pos, vel, radius, colour) {
+  var MoveObject = Asteroids.MoveObject = function (pos, vel, radius, color) {
     this.pos = pos;
     this.vel = vel;
     this.radius = radius;
-    this.colour = colour;
+    this.color = color;
     this.centerX = pos[0];
     this.centerY = pos[1];
   }
@@ -26,18 +26,11 @@
     } else if (this.centerY + this.radius <= 0) {
       this.centerY = screenHeight + this.radius;
     }
-
-    // console.log("center:")
-    // console.log(this.centerX)
-    // console.log("vel")
-    // console.log(this.vel[0])
-    // console.log(screenWidth)
   };
 
-  MoveObject.prototype.draw = function(ctx, colour){ //ctx comes from game
-    ctx.fillStyle = colour;
+  MoveObject.prototype.draw = function(ctx, color){
+    ctx.fillStyle = color;
     ctx.beginPath();
-    //console.log(ctx);
     ctx.arc(
       this.centerX,
       this.centerY,
@@ -54,17 +47,6 @@
     distX = Math.abs(this.centerX - otherObject.centerX);
     distY = Math.abs(this.centerY - otherObject.centerY);
     totRad = this.radius + otherObject.radius;
-
-    // console.log("otherObjX")
-    // console.log(otherObject.centerX)
-    // console.log("otherObjY")
-    // console.log(otherObject.centerY)
-    // console.log("(distY * distY)");
-    // console.log((distY * distY));
-    // console.log("(distX * distX)");
-    // console.log((distX * distX));
-    // console.log("totRad");
-    // console.log(totRad);
 
     if ((totRad * totRad) > ((distX * distX) + (distY * distY))){
       return true;

@@ -1,13 +1,13 @@
 (function(root){
   var Asteroids = root.Asteroids = (root.Asteroids || {});
 
-  var Asteroid = Asteroids.Asteroid = function(pos, vel, radius, colour) {
-    Asteroids.MoveObject.call(this, pos, vel, radius, colour);
+  var Asteroid = Asteroids.Asteroid = function(pos, vel, radius, color) {
+    Asteroids.MoveObject.call(this, pos, vel, radius, color);
   };
 
   Asteroid.inherits(Asteroids.MoveObject);
 
-  Asteroid.COLOUR = 'hotpink';
+  Asteroid.COLOR = 'white';
   Asteroid.RADIUS = 25;
 
   Asteroid.randPosition = function(screenWidth, screenHeight) {
@@ -24,7 +24,7 @@
       newVelY = 1;
     };
     newPos = Asteroid.randPosition(screenWidth, screenHeight);
-    return new Asteroid(newPos, [newVelX, newVelY], Asteroid.RADIUS, Asteroid.COLOUR);
+    return new Asteroid(newPos, [newVelX, newVelY], Asteroid.RADIUS, Asteroid.COLOR);
   };
 
 })(this);
