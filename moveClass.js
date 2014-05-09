@@ -12,7 +12,7 @@
 
   MoveObject.prototype.move = function(screenWidth, screenHeight) {
 
-    this.centerX += this.vel[0] % screenWidth; //screenWidth comes from game
+    this.centerX += this.vel[0] % screenWidth;
     this.centerY += this.vel[1] % screenHeight;
 
     if (this.centerX - this.radius >= screenWidth) {

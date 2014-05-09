@@ -22,25 +22,21 @@
     );
   };
 
-  //FIX THIS
   Ship.prototype.power = function(impulse) {
     this.vel[0] += impulse[0];
     this.vel[1] += impulse[1];
   };
 
-  Ship.prototype.fireBullet = function(){
-
+  Ship.prototype.fireBullet = function(game){
     var speed = Math.sqrt(
       Math.pow(this.vel[0], 2) +
       Math.pow(this.vel[1], 2)
     );
 
-    var direction = [this.vel[0] / speed, this.vel[1] / speed];
+    var start_point = [this.centerX, this.centerY];
 
-    // fix this piece of logic: (only fires in positive directions)
-    if (this.vel[0] != 0 || this.vel[1] != 0 ) {
-      return Asteroids.Bullet.newBullet(this.pos, direction, 1, 'red');
-    }
+    var direction = [this.vel[0] / speed, this.vel[1] / speed];
+    return Asteroids.Bullet.newBullet(start_point, direction, 1, 'red', game);
   };
 
 })(this);

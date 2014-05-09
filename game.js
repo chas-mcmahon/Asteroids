@@ -5,17 +5,18 @@
     this.ctx = canvasEl.getContext("2d");
     this.SCREENWIDTH = canvasEl.width;
     this.SCREENHEIGHT = canvasEl.height;
-    this.asteroids = this.addAsteroids(3);
+    this.asteroids = [];// this.addAsteroids(10);
     this.ship = this.addShip(this.SCREENWIDTH, this.SCREENHEIGHT);
     this.bullets = [];
   };
 
-  Game.prototype.addAsteroids = function(num) {
-    astArray = [];
-    for (var i = 0; i < num; i++) {
-      astArray.push(Asteroids.Asteroid.randomAsteroid(this.SCREENWIDTH, this.SCREENHEIGHT));
+  Game.prototype.generateAsteroids = function(numAsteroids) {
+    for (var i = 0; i < numAsteroids; i++) {
+      this.asteroids.push(Asteroids.Asteroid.randomAsteroid(
+        this.SCREENWIDTH,
+        this.SCREENHEIGHT
+      ));
     }
-    return astArray;
   };
 
   Game.prototype.addShip = function(x, y) {
@@ -23,8 +24,9 @@
   };
 
   Game.prototype.fireBullet = function() {
-    // console.log("bullets:", this.bullets)
-    this.bullets.push(this.ship.fireBullet());
+    if (this.ship.vel[0] != 0 || this.ship.vel[1] != 0 ) {
+      this.bullets.push(this.ship.fireBullet(this));
+    }
   }
 
   Game.prototype.draw = function() {
@@ -54,20 +56,48 @@
     })
   };
 
+  Game.prototype.bulletsOffScreen = function(){
+    for (var i = 0; i < this.bullets.length; i++) {
+      if (this.bullets[i].centerX - this.bullets[i].radius >= this.SCREENWIDTH) {
+        this.removeBullet(i);
+      } else if (this.bullets[i].centerX + this.bullets[i].radius <= 0) {
+        this.removeBullet(i);
+      }
+      if (this.bullets[i].centerY - this.bullets[i].radius >= this.SCREENHEIGHT) {
+        this.removeBullet(i);
+      } else if (this.bullets[i].centerY + this.bullets[i].radius <= 0) {
+        this.removeBullet(i);
+      }
+    }
+  };
+
+  Game.prototype.removeAsteroid = function(AstIndex) {
+    delete this.asteroids.splice(AstIndex, 1);
+  };
+
+  Game.prototype.removeBullet = function(BulIndex) {
+    delete this.bullets.splice(BulIndex, 1);
+  };
+
   Game.prototype.step = function(){
     var game = this;
-    for (var i = 0; i < game.asteroids.length; i++){
-      if (game.ship.isCollideWith(game.asteroids[i])){
+
+    for (var i = 0; i < game.asteroids.length; i++) {
+      if (game.ship.isCollideWith(game.asteroids[i])) {
         alert("You lose!!!");
       }
     }
-
-    //questionable. Why iterate over asteroids to make game move?
-    game.asteroids.forEach(function(asteroid){
-      game.move();
-      game.draw();
-    })
-  };
+    for (var i = 0; i < game.bullets.length; i++) {
+      asteroid_index = game.bullets[i].hitAsteroids();
+      if (asteroid_index != null) {
+        this.removeBullet(i);
+        this.removeAsteroid(asteroid_index);
+      }
+    }
+    game.move();
+    game.bulletsOffScreen();
+    game.draw();
+   };
 
   Game.prototype.bindKeyHandlers = function(){
     var that = this;
@@ -79,14 +109,12 @@
   };
 
   Game.prototype.start = function(){
-    // var ctx = canvasEl.getContext("2d");
     var game = this;
     this.bindKeyHandlers();
-    // key('b', function(){ alert('you pressed a!'); });
-    // game.step()
+    this.generateAsteroids(15);
     window.setInterval(function () {
       game.step();
-    }, 30);
+    }, 15);
   };
 
 })(this);
