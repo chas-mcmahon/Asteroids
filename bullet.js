@@ -1,8 +1,12 @@
-function(root){
-  var Asteroids = root.Asteroids = {root.Asteroids || {}}
+(function(root){
+  var Asteroids = root.Asteroids = (root.Asteroids || {});
 
   var Bullet = Asteroids.Bullet = function(pos, vel, radius, color){
     Asteroids.MoveObject.call(this, pos, vel, radius, color);
+  };
+
+  Bullet.newBullet = function(pos, vel, radius, color) {
+    return new Bullet(pos, vel, radius, color);
   };
 
   Bullet.COLOR = "red";
@@ -10,4 +14,4 @@ function(root){
 
   Bullet.inherits(Asteroids.MoveObject);
 
-}(this);
+})(this);

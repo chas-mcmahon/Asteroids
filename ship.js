@@ -14,7 +14,12 @@
   };
 
   Ship.newShip = function(screenWidth, screenHeight) {
-    return new Ship(this.startPoint(screenWidth, screenHeight), [0,0], Ship.RADIUS, Ship.COLOR);
+    return new Ship(
+      this.startPoint(screenWidth, screenHeight),
+      [0,0],
+      Ship.RADIUS,
+      Ship.COLOR
+    );
   };
 
   //FIX THIS
@@ -32,8 +37,9 @@
 
     var direction = [this.vel[0] / speed, this.vel[1] / speed];
 
-    if (this.vel[0] > 0 || this.vel[1] > 0) {
-      return new Bullet(this.pos, direction, 1, 'red');
+    // fix this piece of logic: (only fires in positive directions)
+    if (this.vel[0] != 0 || this.vel[1] != 0 ) {
+      return Asteroids.Bullet.newBullet(this.pos, direction, 1, 'red');
     }
   };
 
