@@ -1,7 +1,6 @@
 (function(root){
   var Asteroids = root.Asteroids = (root.Asteroids || {});
 
-  
   var Bullet = Asteroids.Bullet = function(options){
     Asteroids.MoveObject.call(this, options);
     this.game = options.game;

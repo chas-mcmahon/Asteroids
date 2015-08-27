@@ -108,7 +108,6 @@
         this.ship.centerX = this.ship.pos[0];
         this.ship.centerY = this.ship.pos[1];
         this.ship.vel = [0,0];
-        console.log("lives:", this.lives);
         // REMOVE VISUAL MARKER FOR LIVES OR SOMETHING
         if (this.lives === 0){
           window.showModal();
@@ -122,7 +121,6 @@
         this.removeBullet(i);
         this.removeAsteroid(asteroid_index);
         this.points += 1;
-        console.log("points:", this.points);
       }
     }
     this.move();

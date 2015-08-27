@@ -48,16 +48,9 @@ h1 {
 	font-size: 40px;
 	margin-top: 0;
 	margin-bottom: 20px;
-	/*position: absolute;*/
-	/*top: 0;*/
-	/*left: 50%;*/
-	/*right: 50%;*/
 }
 
 .modal-close {
-	/*position: absolute;*/
-	/*bottom: 0;*/
-	/*right: 40%;*/
 	font-size: 20px;
 	font-weight: bold;
 	cursor: pointer;
