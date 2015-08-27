@@ -2,7 +2,7 @@
 
 Javascript implementation of Asteroids arcade game.
 
-[Try it out!](http://chas-mcmahon.github.io/Asteroids/s)
+[Try it out!](http://chas-mcmahon.github.io/Asteroids/)
 
 ##Controls
 
