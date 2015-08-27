@@ -5,11 +5,6 @@
     this.ctx = canvasEl.getContext("2d");
     this.SCREENWIDTH = canvasEl.width;
     this.SCREENHEIGHT = canvasEl.height;
-    this.ship = this.addShip(this.SCREENWIDTH, this.SCREENHEIGHT);
-    this.asteroids = [];
-    this.lives = 3;
-    this.points = 0;
-    this.bullets = [];
   };
 
   Game.prototype.generateAsteroids = function(numAsteroids) {
@@ -30,6 +25,8 @@
   };
 
   Game.prototype.resetGame = function() {
+    this.ship = this.addShip(this.SCREENWIDTH, this.SCREENHEIGHT);
+    this.bullets = [];
     this.asteroids = [];
     this.generateAsteroids(15);
     this.lives = 3;
@@ -58,7 +55,16 @@
 
     this.asteroids.forEach(function(asteroid) {
       asteroid.draw(that.ctx, Asteroids.Asteroid.COLOR);
-    })
+    });
+
+    this.drawHUD(this.ctx);
+  };
+
+  Game.prototype.drawHUD = function(ctx) {
+    ctx.fillStyle = "red";
+    ctx.font = "20px sans-serif";
+    ctx.fillText("Lives: " + this.lives, this.SCREENWIDTH / 25, this.SCREENHEIGHT / 25);
+    ctx.fillText("Points: " + this.points, this.SCREENWIDTH * 0.8, this.SCREENHEIGHT / 25);
   };
 
   Game.prototype.move = function(){
@@ -108,10 +114,9 @@
         this.ship.centerX = this.ship.pos[0];
         this.ship.centerY = this.ship.pos[1];
         this.ship.vel = [0,0];
-        console.log("lives:", this.lives);
-        // REMOVE VISUAL MARKER FOR LIVES OR SOMETHING
         if (this.lives === 0){
-          window.showModal();
+          // pass id here with jquery
+          window.showModal("#end-modal");
         }
       }
     }
@@ -122,7 +127,6 @@
         this.removeBullet(i);
         this.removeAsteroid(asteroid_index);
         this.points += 1;
-        console.log("points:", this.points);
       }
     }
     this.move();
@@ -136,13 +140,19 @@
     key('a', function(){ that.ship.power([-1, 0]) });
     key('s', function(){ that.ship.power([ 0, 1]) });
     key('d', function(){ that.ship.power([ 1, 0]) });
-    key('j', function(){ that.fireBullet() });
+    // key('j', function(){ that.fireBullet() });
+
+    key('up', function(){ that.ship.power([ 0,-1]) });
+    key('left', function(){ that.ship.power([-1, 0]) });
+    key('down', function(){ that.ship.power([ 0, 1]) });
+    key('right', function(){ that.ship.power([ 1, 0]) });
+    key('space', function(){ that.fireBullet() });
   };
 
   Game.prototype.start = function(){
     var game = this;
     this.bindKeyHandlers();
-    this.generateAsteroids(15);
+    this.resetGame();
     window.setInterval(function () {
       game.step();
     }, 15);

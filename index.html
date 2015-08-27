@@ -4,7 +4,7 @@
   <title>Asteroids</title>
   <link rel="stylesheet" type="text/css" href="assets/styles/app.css">
   <link rel="icon" href="assets/images/spaceship.png">
-  <img src="assets/images/alienship_20.gif" id="shipImage">
+  <img src="assets/images/greenship.png" id="shipImage">
   <img src="assets/images/asteroid2.png" id="asteroidImage">
   <script src="vendor/keymaster-master/keymaster.js"></script>
   <script src="vendor/jquery.js"></script>
@@ -16,23 +16,31 @@
   <script src="assets/lib/modal.js"></script>
 </head>
 <body>
-  <p>Use W-A-S-D to move and J to shoot</p>
   <canvas width="600" height="600"></canvas>
 
   <script id="start-game">
-      var canvas = document.getElementsByTagName("canvas")[0];
-      window.game = new Asteroids.Game(canvas);
-      window.game.start();
+    var canvas = document.getElementsByTagName("canvas")[0];
+    window.game = new Asteroids.Game(canvas);
+    // window.game.start();
   </script>
 
-  <section id="modal" class="modal">
+  <section id="end-modal" class="modal">
     <article class="modal-content ">
-      <h1>Game Over</h1>
+      <h1 class="gameover">Game Over</h1>
       <p class="points"></p>
-      <span class="modal-close js-hide-modal">Play Again</span>
+      <span class="modal-close js-hide-modal playagain">Play Again</span>
     </article>
     <div class="modal-screen js-hide-modal"></div>
   </section>
+
+  <section id="start-modal" class="modal">
+    <article class="modal-content ">
+      <h1 class="title">Asteroids</h1>
+      <p class="instructions">W-A-S-D or arrow keys to move, spacebar shoots</p>
+      <span class="modal-close js-hide-modal play">Play</span>
+    </article>
+    <div class="modal-screen js-hide-modal"></div>
+  </section>  
 
 </body>
 </html>
