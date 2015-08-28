@@ -16,6 +16,7 @@ img {
 
 .modal {
 	display: none;
+	font-family: sans-serif;
 }
 
 .modal.is-active {
