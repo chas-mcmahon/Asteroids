@@ -114,10 +114,6 @@
         this.ship.centerX = this.ship.pos[0];
         this.ship.centerY = this.ship.pos[1];
         this.ship.vel = [0,0];
-<<<<<<< HEAD
-        // REMOVE VISUAL MARKER FOR LIVES OR SOMETHING
-=======
->>>>>>> master
         if (this.lives === 0){
           // pass id here with jquery
           window.showModal("#end-modal");

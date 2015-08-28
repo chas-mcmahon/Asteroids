@@ -49,12 +49,8 @@
 
   Ship.prototype.draw = function(ctx){
     var image = $("#shipImage")[0];
-<<<<<<< HEAD
-    ctx.drawImage(image, (this.centerX - 15), (this.centerY - 10))
-=======
     ctx.drawImage(image, (this.centerX - 15), (this.centerY - 10));
     // ctx.drawImage(image, 0, 0, 30, 20, (this.centerX - 15), (this.centerY - 10), 30, 20);
->>>>>>> master
   };
 
 })(this);
